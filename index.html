@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S Vineel sai reddy's Portfolio & Text Analyzer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        .profile-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-image {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .birthplace-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .birthplace-gallery img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        
+        .education-item, .skill-item {
+            margin-bottom: 1rem;
+        }
+        
+        .education-item h3 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .education-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .skill-level {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        
+        .skill-fill {
+            height: 100%;
+            background-color: #3498db;
+            border-radius: 5px;
+        }
+        
+        .cv-download {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .cv-download:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #2c3e50;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown:hover .dropdown-button {
+            background-color: #2980b9;
+        }
+        
+        /* Text Analyzer Styles */
+        .analyzer-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid #3498db;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .analyze-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .analyze-button:hover {
+            background-color: #45a049;
+        }
+        
+        .result-section {
+            margin-bottom: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .section-divider {
+            height: 3px;
+            background-color: #3498db;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>S.Vineel sai reddy's web page</h1>
+            <p>Student | Department CSE | Sports player</p>
+            
+            <div class="dropdown">
+                <button class="dropdown-button">Navigation Menu</button>
+                <div class="dropdown-content">
+                    <a href="#about">About Me</a>
+                    <a href="#education">Education</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#text-analyzer">Text Analyzer</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Portfolio Content -->
+        <section id="about" class="section profile-section">
+            <div class="profile-image">
+                <img src="/home/somannagari-vineel-sai-reddy/Videos/2024101009_iss_3/images/S Vineel sai reddy.jpg" alt="S Vineel sai reddy" id="profile-image">
+            </div>
+            
+            <div class="profile-text">
+                <h2>About Me</h2>
+                <p>Hello! My name is S. Vineel Sai Reddy. My father's name is S. Sanjeeva Reddy, and my mother's name is S. Lakshmi Devi. I am from Kadapa and currently studying in my first year of undergraduate studies (UG1) at IIIT Hyderabad. I am a national-level chess player and have a strong interest in playing sports. I also have some dreams, such as visiting temples all over India and experiencing air travel for the first time.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>My Birthplace</h2>
+            <p>I was born and raised in the city named kadapa which is located in Andhra pradesh state. Here are some glimpses of my hometown:</p>
+            
+            <div class="birthplace-gallery">
+                <img src="/home/somannagari-vineel-sai-reddy/Videos/2024101009_iss_3/images/Hometown Scene 1.jpg" alt="Hometown Scene 1"class="hometown-image">
+                <img src="/home/somannagari-vineel-sai-reddy/Videos/2024101009_iss_3/images/Hometown Scene 2.jpg" alt="Hometown Scene 2" class="hometown-image">
+                <img src="/home/somannagari-vineel-sai-reddy/Videos/2024101009_iss_3/images/Hometown Scene 3.jpg" alt="Hometown Scene 3" class="hometown-image">
+                <img src="/home/somannagari-vineel-sai-reddy/Videos/2024101009_iss_3/images/Hometown Scene 4.jpg" alt="Hometown Scene 4" class="hometown-image">
+            </div>
+        </section>
+        
+        <section id="education" class="section">
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <h3>Intermediate</h3>
+                <div class="education-date">2022 - 2024</div>
+                <p><strong>College name: RGUKT RK Valley</strong> • 2022-2024</p>
+                <p>Subjects that i have studied are maths, physics, chemistry, english, telugu, information technology.</p>
+            </div>
+            
+            <div class="education-item">
+                <h3>High School</h3>
+                <div class="education-date">2015 - 2022</div>
+                <p><strong>School Name: Kendriya vidyalaya sangathan</strong> • 2015-2022</p>
+                <p>Subjects that i have studied are maths, science, social, hindi, english, information technology</p>
+            </div>
+        </section>
+        
+        <section id="skills" class="section">
+            <h2>Technical Skills</h2>
+            
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    
+                    <div class="skill-item">
+                        <div>JavaScript</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 50%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>Python</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 60%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>C++</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 60%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Web Technologies</h3>
+                    
+                    <div class="skill-item">
+                        <div>HTML/CSS</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 90%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>React.js</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 75%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>Node.js</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 80%"></div></div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Other Tools & Technologies</h3>
+                    
+                    <div class="skill-item">
+                        <div>Git/GitHub</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 100%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>AWS</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 60%"></div></div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div>MongoDB</div>
+                        <div class="skill-level"><div class="skill-fill" style="width: 75%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+          <section id="cv" class="section" style="text-align: center;">
+            <div style="text-align: center; margin-top: 30px;">
+                <p>For more detailed information about my experience and skills, please download below CV.</p>
+                <a href="file:///home/somannagari-vineel-sai-reddy/Desktop/CV /CV.pdf" download="CV.pdf" class="cv-download">
+                    <span class="icon">📄</span>Download CV
+                </a>
+            </div>
+        </section>
+        
+        <section id="contact" class="section">
+            <h2>Contact Me</h2>
+            <p>Email: vineelsaireddys@gmail.com</p>
+            <p>Phone: +91 7207605078</p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/vineel-sai-reddy-somannagari-766807340/" target="_blank">linkedin.com/in/vineel-sai-reddy-somannagari-766807340/</a></p>
+            <p>GitHub: <a href="https://github.com/vineelsaireddy123" target="_blank">github.com/vineelsaireddy123</a></p>
+        </section>
+        
+        <!-- Text Analyzer Content -->
+        <div class="section-divider"></div>
+        
+        <section id="text-analyzer" class="section analyzer-section">
+            <h2>Text Analyzer</h2>
+            
+            <textarea id="textInput" placeholder="Paste text here (10,000+ words recommended)..."></textarea>
+            <button class="analyze-button" onclick="analyzeText()">Analyze Text</button>
+            
+            <div class="results" id="results">
+                <div class="result-section">
+                    <h2>Basic Text Statistics</h2>
+                    <div id="basicStats"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h2>Pronouns Count</h2>
+                    <div id="pronounsStats"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h2>Prepositions Count</h2>
+                    <div id="prepositionsStats"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h2>Indefinite Articles Count</h2>
+                    <div id="articlesStats"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 S Vineel sai reddy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Text Analyzer Script
+        const pronouns = [
+            'i', 'me', 'my', 'mine', 'myself',
+            'you', 'your', 'yours', 'yourself', 'yourselves',
+            'he', 'him', 'his', 'himself',
+            'she', 'her', 'hers', 'herself',
+            'it', 'its', 'itself',
+            'we', 'us', 'our', 'ours', 'ourselves',
+            'they', 'them', 'their', 'theirs', 'themselves',
+            'who', 'whom', 'whose', 'whomever',
+            'this', 'that', 'these', 'those',
+            'anybody', 'anyone', 'anything',
+            'everybody', 'everyone', 'everything',
+            'nobody', 'nothing', 'no one',
+            'somebody', 'someone', 'something',
+            'what', 'whatever', 'which', 'whichever'
+        ];
+
+        const prepositions = [
+            'about', 'above', 'across', 'after', 'against', 'along', 'amid', 'among',
+            'around', 'at', 'before', 'behind', 'below', 'beneath', 'beside', 'besides',
+            'between', 'beyond', 'by', 'concerning', 'considering', 'despite', 'down',
+            'during', 'except', 'excepting', 'excluding', 'following', 'for', 'from',
+            'in', 'inside', 'into', 'like', 'minus', 'near', 'of', 'off', 'on', 'onto',
+            'opposite', 'outside', 'over', 'past', 'per', 'plus', 'regarding',
+            'round', 'since', 'than', 'through', 'to', 'toward', 'towards', 'under',
+            'underneath', 'unlike', 'until', 'up', 'upon', 'versus', 'via', 'with',
+            'within', 'without'
+        ];
+
+        const indefiniteArticles = ['a', 'an'];
+
+        function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            
+            if (!text.trim()) {
+                alert("Please enter text to analyze.");
+                return;
+            }
+            
+            const letterCount = (text.match(/[a-zA-Z]/g) || []).length;
+            const wordCount = text.trim().split(/\s+/).length;
+            const spaceCount = (text.match(/\s/g) || []).length;
+            const newlineCount = (text.match(/\n/g) || []).length;
+            const specialSymbolCount = (text.match(/[^\w\s]/g) || []).length;
+            
+            document.getElementById('basicStats').innerHTML = `
+                <table>
+                    <tr><th>Metric</th><th>Count</th></tr>
+                    <tr><td>Letters</td><td>${letterCount}</td></tr>
+                    <tr><td>Words</td><td>${wordCount}</td></tr>
+                    <tr><td>Spaces</td><td>${spaceCount}</td></tr>
+                    <tr><td>Newlines</td><td>${newlineCount}</td></tr>
+                    <tr><td>Special Symbols</td><td>${specialSymbolCount}</td></tr>
+                </table>
+            `;
+            
+            const tokens = text.toLowerCase().match(/\b\w+\b/g) || [];
+            
+            const pronounCounts = countWordsByCategory(tokens, pronouns);
+            document.getElementById('pronounsStats').innerHTML = generateTable(pronounCounts, "Pronoun", "Count");
+            
+            const prepositionCounts = countWordsByCategory(tokens, prepositions);
+            document.getElementById('prepositionsStats').innerHTML = generateTable(prepositionCounts, "Preposition", "Count");
+            
+            const articleCounts = countWordsByCategory(tokens, indefiniteArticles);
+            document.getElementById('articlesStats').innerHTML = generateTable(articleCounts, "Article", "Count");
+        }
+        
+        function countWordsByCategory(tokens, categoryWords) {
+            const counts = {};
+            categoryWords.forEach(word => counts[word] = 0);
+            
+            tokens.forEach(token => {
+                if (categoryWords.includes(token)) {
+                    counts[token]++;
+                }
+            });
+            
+            return Object.entries(counts)
+                .filter(([_, count]) => count > 0)
+                .sort(([_, countA], [__, countB]) => countB - countA);
+        }
+        
+        function generateTable(data, colName1, colName2) {
+            if (data.length === 0) {
+                return "<p>No items found in this category.</p>";
+            }
+            
+            let tableHtml = `
+                <table>
+                    <tr>
+                        <th>${colName1}</th>
+                        <th>${colName2}</th>
+                    </tr>
+            `;
+            
+            data.forEach(([word, count]) => {
+                tableHtml += `
+                    <tr>
+                        <td>${word}</td>
+                        <td>${count}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHtml += "</table>";
+            return tableHtml;
+        }
+
+        // Portfolio Script
+        (function() {
+            const elementDescriptions = {
+                'profile-picture': 'Profile Image',
+                'hometown-image': 'Hometown Image',
+                'dropdown-button': 'Navigation Dropdown',
+                'dropdown-content': 'Dropdown Menu',
+                'cv-link': 'CV Download Link',
+            };
+            
+            function getElementDescription(element) {
+                if (element.id && elementDescriptions[element.id]) {
+                    return elementDescriptions[element.id];
+                }
+                
+                if (element.classList) {
+                    for (const className of element.classList) {
+                        if (elementDescriptions[className]) {
+                            return elementDescriptions[className];
+                        }
+                    }
+                }
+                
+                const tagName = element.tagName.toLowerCase();
+                
+                if (tagName === 'a') {
+                    return `Link: ${element.textContent || element.href}`;
+                } else if (tagName === 'button') {
+                    return `Button: ${element.textContent}`;
+                } else if (tagName === 'img') {
+                    return `Image: ${element.alt || 'unnamed'}`;
+                } else if (tagName === 'h1' || tagName === 'h2' || tagName === 'h3') {
+                    return `Heading: ${element.textContent}`;
+                } else if (tagName === 'p') {
+                    return 'Paragraph Text';
+                } else {
+                    return `${tagName} element`;
+                }
+            }
+            
+            function logEvent(eventType, element) {
+                const timestamp = new Date().toISOString();
+                const objectType = getElementDescription(element);
+                console.log(`${timestamp}, ${eventType}, ${objectType}`);
+            }
+            
+            document.addEventListener('click', function(event) {
+                logEvent('click', event.target);
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        logEvent('view', entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            document.querySelectorAll('section, img, .dropdown-content a').forEach(element => {
+                observer.observe(element);
+            });
+            
+            console.log(`${new Date().toISOString()}, view, Page Load`);
+        })();
+    </script>
+</body>
+</html>
